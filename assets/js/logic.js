@@ -9,9 +9,15 @@ var initials = document.querySelector("#initials");
 var submit = document.querySelector("#submit");
 var finalScore = document.querySelector("#final-score");
 var highscores = document.querySelector("#highscores");
+var highScoresLength = 0;
+var highScoresArray = [];
+if (localStorage.getItem("highScoresArray") != null) {
+    highScoresLength = JSON.parse(localStorage.getItem("highScoresLength"));
+    highScoresArray = JSON.parse(localStorage.getItem("highScoresArray"));
+}
 var timerOn = true;
 
-var timeNow = 100;
+var timeNow = 15;
 time.innerHTML = timeNow;
 
 start.addEventListener("click", function() {
@@ -21,6 +27,10 @@ start.addEventListener("click", function() {
         if (timeNow != 0 && timerOn == true) {
             timeNow --;
             time.innerHTML = timeNow;
+        } else {
+            finalScore.innerHTML = timeNow;
+            questions.className = "hide";
+            endScreen.className = "";
         }
     },1000);
     
@@ -48,7 +58,7 @@ function changeRounds() {
             if (event.target.dataset.number == fiveQuestions[index].answer) {
                 for (var b = 0; b <fiveQuestions[index].choices.length; b++) {
                 choices.removeChild(choices.firstElementChild);
-            };
+                };
                 if (index < 4) {
                     changeRounds();
                 } else {
@@ -59,12 +69,34 @@ function changeRounds() {
                     initials.addEventListener("input", function(event) {
                         submit.addEventListener("click", function() {
                             var submitName = event.target.value;
+                            if (highScoresArray.length == highScoresLength) {
+                                highScoresArray.push({name: submitName, score: timeNow});
+                            };
+                            localStorage.setItem('highScoresLength', JSON.stringify(highScoresArray.length));
+                            localStorage.setItem('highScoresArray', JSON.stringify(highScoresArray));
+
+                            for (var c = 0; c < highScoresArray.length; c++) {
+                                function createHighScoreItem(name) {
+                                    var li = document.createElement('li');
+                                    li.id = "li";
+                                    li.className ="li";
+                                    li.innerHTML = name;
+                                    return li;
+                                }
+                                highscores.appendChild(createHighScoreItem(highScoresArray[c][c].name));
+                            }
                         });
                     });
                     
                 };
             } else {
+                if (timeNow >= 10) {
                 timeNow = timeNow - 10;
+                } else {
+                    timeNow = 0;
+                    time.innerHTML = timeNow;
+                }
+                alert('Incorrect, 10 seconds removed from the timer - try again.')
             }
         });
     };
