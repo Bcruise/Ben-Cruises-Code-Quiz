@@ -56,6 +56,7 @@ function changeRounds() {
 
         accessButton[a].addEventListener("click", function(event) {
             if (event.target.dataset.number == fiveQuestions[index].answer) {
+                alert('correct!');
                 for (var b = 0; b <fiveQuestions[index].choices.length; b++) {
                 choices.removeChild(choices.firstElementChild);
                 };
@@ -75,16 +76,7 @@ function changeRounds() {
                             localStorage.setItem('highScoresLength', JSON.stringify(highScoresArray.length));
                             localStorage.setItem('highScoresArray', JSON.stringify(highScoresArray));
                             
-                            for (var c = 0; c < highScoresArray.length; c++) {
-                                function createHighScoreItem(name) {
-                                    var li = document.createElement('li');
-                                    li.id = "li";
-                                    li.className ="li";
-                                    li.innerHTML = name;
-                                    return li;
-                                }
-                                highscores.appendChild(createHighScoreItem(highScoresArray[c][c].name));
-                            }
+                            
                         });
                     });
                     
