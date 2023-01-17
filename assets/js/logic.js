@@ -17,7 +17,7 @@ if (localStorage.getItem("highScoresArray") != null) {
 }
 var timerOn = true;
 
-var timeNow = 15;
+var timeNow = 100;
 time.innerHTML = timeNow;
 
 start.addEventListener("click", function() {
@@ -74,7 +74,7 @@ function changeRounds() {
                             };
                             localStorage.setItem('highScoresLength', JSON.stringify(highScoresArray.length));
                             localStorage.setItem('highScoresArray', JSON.stringify(highScoresArray));
-
+                            
                             for (var c = 0; c < highScoresArray.length; c++) {
                                 function createHighScoreItem(name) {
                                     var li = document.createElement('li');
@@ -96,7 +96,7 @@ function changeRounds() {
                     timeNow = 0;
                     time.innerHTML = timeNow;
                 }
-                alert('Incorrect, 10 seconds removed from the timer - try again.')
+                alert('Incorrect, 10 seconds removed from the timer - try again.');
             }
         });
     };
