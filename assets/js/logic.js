@@ -83,7 +83,7 @@ function changeRounds() {
                 };
             } else {
                 if (timeNow >= 10) {
-                timeNow = timeNow - 10;
+                timeNow = timeNow - 9;
                 } else {
                     timeNow = 0;
                     time.innerHTML = timeNow;
