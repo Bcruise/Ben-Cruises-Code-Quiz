@@ -28,9 +28,22 @@ start.addEventListener("click", function() {
             timeNow --;
             time.innerHTML = timeNow;
         } else {
-            finalScore.innerHTML = timeNow;
-            questions.className = "hide";
-            endScreen.className = "";
+            timerOn = false;
+                    finalScore.innerHTML = timeNow;
+                    questions.className = "hide";
+                    endScreen.className = "";
+                    initials.addEventListener("input", function(event) {
+                        submit.addEventListener("click", function() {
+                            var submitName = event.target.value;
+                            if (highScoresArray.length == highScoresLength) {
+                                highScoresArray.push({name: submitName, score: timeNow});
+                            };
+                            localStorage.setItem('highScoresLength', JSON.stringify(highScoresArray.length));
+                            localStorage.setItem('highScoresArray', JSON.stringify(highScoresArray));
+                            
+                            
+                        });
+                    });
         }
     },1000);
     
